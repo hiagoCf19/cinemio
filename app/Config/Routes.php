@@ -6,7 +6,7 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 // Web
-$routes->get('/', 'LoginWebController::index');          // carrega a view de login
+$routes->get('/', 'LandingPageController::index');          // carrega a view de login
 $routes->post('/login', 'LoginWebController::loginWeb');    // processa o form
 
 // API
