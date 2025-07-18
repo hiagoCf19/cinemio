@@ -24,40 +24,190 @@
       </div>
     </div>
   </header>
-  <section class="bg-black flex items-end h-[700px] bg-no-repeat" style="background-image: url('./bg.png');">
-    <div class="w-full max-w-7xl mx-auto flex  justify-between">
-      <div class="flex flex-col items-center justify-center text-white py-8">
-        <svg width="40" height="40" viewBox="0 0 40 40" fill="#FFF" role="img" class="m-4">
-          <path
-            d="M20 40a6 6 0 11.01-12.01A6 6 0 0120 40zm0-2a4 4 0 100-8 4 4 0 000 8zm0-38a6 6 0 016 6v14a6 6 0 11-12 0V6a6 6 0 016-6zm0 2a4 4 0 00-4 4v14a4 4 0 108 0V6a4 4 0 00-4-4z">
-          </path>
-        </svg>
-        <p class="text-center text-lg font-medium">
-          Aproveite acesso ilimitado aos animes <br> sem anúncios</p>
-      </div>
-      <div class="flex flex-col items-center justify-center text-white py-8">
-        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="m-4"
-          viewBox="0 0 16 16">
-          <path
-            d="M14.222 9.374c1.037-.61 1.037-2.137 0-2.748L11.528 5.04 8.32 8l3.207 2.96zm-3.595 2.116L7.583 8.68 1.03 14.73c.201 1.029 1.36 1.61 2.303 1.055zM1 13.396V2.603L6.846 8zM1.03 1.27l6.553 6.05 3.044-2.81L3.333.215C2.39-.341 1.231.24 1.03 1.27" />
-        </svg>
-        <p class="text-center text-lg font-medium">
-          Faça o download do nosso aplicativo oficial na <br>Google Play Store.
-        </p>
+  <section class="relative flex items-end h-[700px] bg-no-repeat" style="background-image: url('./bg.png');">
+
+    <!-- Título centralizado acima dos cards -->
+    <h1 class="absolute top-1/4   left-1/2 transform -translate-x-1/2 text-white text-5xl font-bold text-center">
+      Confira os lançamentos <br> mais aguardados!
+    </h1>
+
+    <!-- Cards -->
+    <div
+      class="absolute left-1/2 transform -translate-x-1/2 flex justify-between h-[500px] w-full max-w-7xl -bottom-[20%]">
+      <!-- card 1 -->
+      <div class="w-[350px] rounded-lg bg-white shadow-lg shadow shadow-lg shadow-black/50">
+        <img src="./lancamento1.jpeg" class="rounded-t-lg" alt="agendado">
+        <div class="bg-white rounded-b-lg p-4 flex flex-col ">
+          <p class=" text-lg text-zinc-800 font-medium">
+            Bleach TWBW Season 4 (2026)
+          </p>
+          <span class="text-zinc-600 text-sm mt-2">
+            &Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti amet possimus facilis impedit accusantium
+            quisquam reprehenderit aspernatur inventore nihil hic nesciunt temporibus rem quia velit ut ipsum,
+            voluptatem culpa. Aliquam.
+          </span>
+        </div>
       </div>
 
-      <div class="flex flex-col items-center justify-center text-white py-8">
-        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-tv"
-          viewBox="0 0 16 16">
-          <path
-            d="M2.5 13.5A.5.5 0 0 1 3 13h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5M13.991 3l.024.001a1.5 1.5 0 0 1 .538.143.76.76 0 0 1 .302.254c.067.1.145.277.145.602v5.991l-.001.024a1.5 1.5 0 0 1-.143.538.76.76 0 0 1-.254.302c-.1.067-.277.145-.602.145H2.009l-.024-.001a1.5 1.5 0 0 1-.538-.143.76.76 0 0 1-.302-.254C1.078 10.502 1 10.325 1 10V4.009l.001-.024a1.5 1.5 0 0 1 .143-.538.76.76 0 0 1 .254-.302C1.498 3.078 1.675 3 2 3zM14 2H2C0 2 0 4 0 4v6c0 2 2 2 2 2h12c2 0 2-2 2-2V4c0-2-2-2-2-2" />
-        </svg>
-        <p class="text-center text-lg font-medium">
-          Assista em qualquer dispositivo, <br> onde e quando quiser.
-        </p>
+      <!-- card 2 -->
+      <div class="w-[350px] rounded-lg bg-white shadow-lg shadow shadow-lg shadow-black/50">
+        <img src="./lancamento2.jpeg" class="rounded-t-lg" alt="agendado">
+        <div class="bg-white rounded-b-lg p-4 flex flex-col ">
+          <p class=" text-lg text-zinc-800 font-medium">
+            Demon Slayer: Kimetsu no Yaiba – Castelo Infinito (2025)
+          </p>
+          <span class="text-zinc-600 text-sm mt-2">
+            &Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti amet possimus facilis impedit accusantium
+            quisquam reprehenderit aspernatur inventore nihil hic nesciunt temporibus rem quia velit ut ipsum,
+            voluptatem culpa. Aliquam.
+          </span>
+        </div>
+      </div>
+
+
+      <!-- card 3 -->
+      <div class="w-[350px] rounded-lg bg-white shadow-lg shadow shadow-lg shadow-black/50">
+        <img src="./lancamento3.jpg" class="rounded-t-lg" alt="agendado">
+        <div class="bg-white rounded-b-lg p-4 flex flex-col ">
+          <p class=" text-lg text-zinc-800 font-medium">
+            My Hero Academia: Final Season (2025)
+          </p>
+          <span class="text-zinc-600 text-sm mt-2">
+            &Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti amet possimus facilis impedit accusantium
+            quisquam reprehenderit aspernatur inventore nihil hic nesciunt temporibus rem quia velit ut ipsum,
+            voluptatem culpa. Aliquam.
+          </span>
+        </div>
       </div>
     </div>
   </section>
+  <section class=" mt-[20%] bg-gray-900 text-white py-20 px-4">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+
+      <!-- Imagem ou mockup -->
+      <div class="flex justify-center">
+        <img src="./devices.png" alt="Dispositivos" class="w-full max-w-md rounded-xl shadow-lg">
+      </div>
+
+      <!-- Texto -->
+      <div>
+        <h2 class="text-4xl font-bold mb-6">Assista de qualquer dispositivo</h2>
+        <p class="text-lg text-gray-300 mb-6">
+          Curta seus animes favoritos onde estiver: no celular, tablet, computador ou até mesmo na sua TV. Nosso site é
+          totalmente responsivo e otimizado para qualquer tela.
+        </p>
+
+        <ul class="space-y-3 text-base text-gray-200">
+          <li class="flex items-center">
+            <svg class="w-6 h-6 text-green-400 mr-2" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            Compatível com Android e iOS
+          </li>
+          <li class="flex items-center">
+            <svg class="w-6 h-6 text-green-400 mr-2" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            Navegadores modernos (Chrome, Firefox, Safari)
+          </li>
+          <li class="flex items-center">
+            <svg class="w-6 h-6 text-green-400 mr-2" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            Compatível com Smart TVs e consoles
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <section class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+    <div class="text-center">
+      <h2 class="text-3xl font-bold mb-2">Obtenha mais com o Premium</h2>
+      <p class="text-gray-600 mb-8">Os membros aproveitam uma série de vantagens de anime.</p>
+
+      <div class="flex flex-col lg:flex-row justify-center items-center gap-6">
+
+        <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-sm border border-gray-200">
+          <div class="mb-6">
+            <div data-t="product-icon" class="bg-gray-900 text-white rounded-full w-20 h-20">
+              <svg title="Prêmio" xmlns="http://www.w3.org/2000/svg" class="s-1krag50-FanProductIcon edh7c060">
+                <path fill="none"
+                  d="M25.9995805 2.1706845L15.5442004 17.9313712 2.0056328 11.2757714 9.2325257 33.8h34.15535L50.0715 11.2378527l-13.615663 6.6935002L25.9995805 2.1706845z">
+                </path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold mb-2">FÃ</h3>
+            <p class="text-3xl font-bold text-green-500">FREE</p>
+          </div>
+          <button
+            class="text-gray-900 py-3 px-6 rounded-md font-semibold w-full mb-6 hover:text-gray-700 transition duration-300">
+            INICIAR </button>
+          <ul class="text-left text-gray-700 space-y-2">
+            <li class="flex items-center">
+              <span class="text-green-500 mr-2">&#10003;</span> Sem anúncios
+            </li>
+            <li class="flex items-center">
+              <span class="text-green-500 mr-2">&#10003;</span> Acesso ilimitado à biblioteca Crunchyroll
+            </li>
+          </ul>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-sm border-4 border-blue-400 relative">
+          <div
+            class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-blue-400 text-white text-xs font-bold px-3 py-1 rounded-full">
+            MELHOR NEGÓCIO!
+          </div>
+          <div class="mb-6">
+            <img src="https://via.placeholder.com/60x60" alt="Coroa" class="mx-auto mb-4">
+            <h3 class="text-xl font-semibold mb-2">MEGA FÃ (1 mês)</h3>
+            <p class="text-3xl font-bold text-gray-800">R$ 19,99 / mês</p>
+            <p class="text-sm text-gray-500">+ IMPOSTOS APLICÁVEIS</p>
+          </div>
+          <button
+            class="bg-orange-500 text-white py-3 px-6 rounded-md font-semibold w-full mb-3 hover:bg-orange-600 transition duration-300">
+            COMECE O TESTE GRATUITO DE 7 DIAS
+          </button>
+          <button
+            class="text-orange-500 py-3 px-6 rounded-md font-semibold w-full mb-6 hover:text-orange-600 transition duration-300">
+            PULAR TESTE GRATUITO
+          </button>
+          <ul class="text-left text-gray-700 space-y-2">
+            <li class="flex items-center">
+              <span class="text-green-500 mr-2">&#10003;</span> Sem anúncios
+            </li>
+            <li class="flex items-center">
+              <span class="text-green-500 mr-2">&#10003;</span> Acesso ilimitado à biblioteca Crunchyroll
+            </li>
+            <li class="flex items-center">
+              <span class="text-green-500 mr-2">&#10003;</span> Novos episódios logo após o Japão
+            </li>
+            <li class="flex items-center">
+              <span class="text-green-500 mr-2">&#10003;</span> Transmita em 4 dispositivos ao mesmo tempo
+            </li>
+            <li class="flex items-center">
+              <span class="text-green-500 mr-2">&#10003;</span> Visualização offline
+            </li>
+            <li class="flex items-center">
+              <span class="text-green-500 mr-2">&#10003;</span> Acesse o Crunchyroll Game Vault, um catálogo de jogos
+              gratuitos
+            </li>
+            <li class="flex items-center">
+              <span class="text-green-500 mr-2">&#10003;</span> 16% de desconto no Plano Mensal<br>(cobrado a cada 12
+              meses)
+            </li>
+          </ul>
+        </div>
+
+
+      </div>
+      <p class="text-xs text-gray-500 mt-8">*A disponibilidade na Loja Crunchyroll pode variar de acordo com o país.</p>
+    </div>
+  </section>
+
+
 
 
 
