@@ -12,6 +12,7 @@ services:
       - "5432:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
+      - ./db/init:/docker-entrypoint-initdb.d  # inicializa o DB Keycloak automaticamente
 
   minio:
     image: minio/minio
@@ -26,6 +27,25 @@ services:
     volumes:
       - minio_data:/data
 
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.3.2
+    container_name: cinemio_keycloak
+    environment:
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://db:5432/keycloak
+      KC_DB_USERNAME: ci_user
+      KC_DB_PASSWORD: ci_pass
+      KC_BOOTSTRAP_ADMIN_USERNAME: animio
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+    command: start-dev
+    ports:
+      - "8005:8080"  # mapeia porta 8080 do container para 8005 na máquina
+    depends_on:
+      - db
+    volumes:
+      - keycloak_data:/opt/keycloak/data
+
 volumes:
   db_data:
   minio_data:
+  keycloak_data:

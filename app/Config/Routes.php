@@ -6,13 +6,10 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 // Web
-$routes->get('/', 'LandingPageController::index');          // carrega a view de login
-$routes->post('/login', 'LoginWebController::loginWeb');    // processa o form
+$routes->get('/landing', 'landing\LandingPageController::index');
+$routes->post('/auth', 'LoginController::index');    // processa o form
 
 // API
 $routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes) {
     $routes->post('login', 'LoginApiController::login'); // POST /api/login
 });
-
-
-
