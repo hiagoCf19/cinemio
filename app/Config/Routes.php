@@ -6,8 +6,15 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 // Web
+$routes->get('/', 'landing\LandingPageController::index');
+
 $routes->get('/landing', 'landing\LandingPageController::index');
-$routes->post('/auth', 'LoginController::index');    // processa o form
+$routes->get('/login', 'Auth\LoginController::index');
+$routes->post('/login', 'Auth\LoginController::login');
+$routes->get('/cadastro', 'Auth\RegisterController::index');
+$routes->post('/register', 'Auth\RegisterController::register');
+
+// processa o form
 
 // API
 $routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes) {

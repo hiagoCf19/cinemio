@@ -2,25 +2,44 @@
 
 namespace App\Controllers\Api;
 
-class LoginWebController extends BaseController
+use App\Controllers\BaseController;
+use App\Libraries\KeycloakService;
+use CodeIgniter\API\ResponseTrait;
+
+class LoginApiController extends BaseController
 {
+  use ResponseTrait;
 
   public function login()
   {
-    echo "teste";
-      $data = $this->request->getJSON(true);
-      $email = $data['email'] ?? '';
-      $password = $data['password'] ?? '';
-  
-      $user = (new AuthService())->authenticate($email, $password);
-  
-      if ($user) {
-          $token = JWTService::generateToken($user);
-          return $this->respond(['token' => $token, 'user' => $user]);
+    try {
+      // Pega o JSON enviado na requisição
+      $data = $this->request->getJSON();
+
+      // Verifica se o JSON veio correto
+      if (!$data || !isset($data->email) || !isset($data->password)) {
+        return $this->failValidationErrors("Parâmetros 'email' e 'password' são obrigatórios");
       }
-  
-      return $this->failUnauthorized('Invalid credentials');
+
+      $email = $data->email;
+      $password = $data->password;
+
+      $keycloak = new KeycloakService();
+      $response = $keycloak->login($email, $password);
+
+      if (!$response['success']) {
+        // Retorna erro com mensagem da API do Keycloak
+        return $this->fail($response['message'] ?? 'Erro desconhecido', 401);
+      }
+
+      // Login bem-sucedido
+      return $this->respond([
+        'success' => true,
+        'token'   => $response['token'],
+      ], 200);
+    } catch (\Exception $e) {
+      // Qualquer outro erro inesperado
+      return $this->failServerError("Erro interno: " . $e->getMessage());
+    }
   }
-  
-    
 }

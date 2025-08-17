@@ -19,7 +19,7 @@
 
       <div class="flex gap-4">
         <a class="px-8 py-2  text-[#6A0DAD] border-2 border-[#6A0DAD] rounded-lg  font-medium"
-          href="<?= base_url('/cadastro') ?>">
+          href="<?= base_url('/login') ?>">
           Entrar</a>
         <button style="background-color: <?= primary_color() ?>;"
           class="px-8 py-2 border border-[#6A0DAD] border-2 rounded-lg text-zinc-50 font-medium">Explorar</button>
