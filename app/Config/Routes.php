@@ -7,7 +7,7 @@ use CodeIgniter\Router\RouteCollection;
  */
 // Web
 $routes->get('/', 'landing\LandingPageController::index');
-
+$routes->get('/testDb', 'TestDb::index');
 $routes->get('/landing', 'landing\LandingPageController::index');
 $routes->get('/login', 'Auth\LoginController::index');
 $routes->post('/login', 'Auth\LoginController::login');

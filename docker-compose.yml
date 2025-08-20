@@ -1,6 +1,23 @@
 version: "3.8"
 
 services:
+  # Serviço da sua aplicação CodeIgniter
+  app:
+    build: .
+    container_name: cinemio_app
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - db
+    # ESTA É A ALTERAÇÃO:
+    # Este comando é executado toda vez que o contêiner inicia.
+    # 1. Ajusta as permissões da pasta 'writable'.
+    # 2. Inicia o servidor Apache em primeiro plano.
+    command: >
+      bash -c "chmod -R 777 /var/www/html/writable && apache2-foreground"
+
   db:
     image: postgres:15
     container_name: cinemio_db
@@ -12,15 +29,15 @@ services:
       - "5432:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
-      - ./db/init:/docker-entrypoint-initdb.d  # inicializa o DB Keycloak automaticamente
+      - ./db/init:/docker-entrypoint-initdb.d
 
   minio:
     image: minio/minio
     container_name: cinemio_minio
     command: server /data --console-address ":9001"
     ports:
-      - "9000:9000"  # API S3
-      - "9001:9001"  # Painel de administração
+      - "9000:9000"
+      - "9001:9001"
     environment:
       MINIO_ROOT_USER: admin
       MINIO_ROOT_PASSWORD: admin123
@@ -39,7 +56,7 @@ services:
       KC_BOOTSTRAP_ADMIN_PASSWORD: admin
     command: start-dev
     ports:
-      - "8005:8080"  # mapeia porta 8080 do container para 8005 na máquina
+      - "8005:8080"
     depends_on:
       - db
     volumes:
