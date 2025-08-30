@@ -1,54 +1,56 @@
 <?php
 
-namespace App\Controllers\Api;
+namespace App\Controllers\Auth;
 
 use App\Controllers\BaseController;
-use App\Libraries\KeycloakService;
+use App\Entities\Account;
+use App\Libraries\AccountService;
 use CodeIgniter\API\ResponseTrait;
 
-class RegisterApiController extends BaseController
+class RegisterController extends BaseController
 {
   use ResponseTrait;
+  public function index()
+  {
+    return view('auth/register');
+  }
 
   public function register()
   {
-    try {
-      // Pega o JSON enviado na requisição
-      $data = $this->request->getJSON();
+    // Pega os dados do formulário
+    $data = $this->request->getPost();
 
-      // Verifica se todos os campos obrigatórios vieram
-      $requiredFields = ['nome', 'sobrenome', 'email', 'telefone', 'data_nascimento', 'password', 'confirm_password'];
-      foreach ($requiredFields as $field) {
-        if (!isset($data->$field)) {
-          return $this->failValidationErrors("O campo '{$field}' é obrigatório.");
-        }
+
+    // Campos obrigatórios
+    $requiredFields = ['name', 'last_name', 'email', 'phone', 'date_of_birth', 'password', 'confirm_password'];
+    foreach ($requiredFields as $field) {
+      if (empty($data[$field])) {
+        return $this->failValidationErrors("O campo '{$field}' é obrigatório.");
       }
+    }
 
-      $keycloak = new KeycloakService();
+    // Monta a entidade Account
+    $account = (new Account())
+      ->setEmail($data['email'])
+      ->setHolderName($data['name'] . ' ' . $data['last_name'])
+      ->setHolderDateOfBirth($data['date_of_birth'])
+      ->setHolderPhone($data['phone']);
 
-      // Cria o usuário no Keycloak
-      $userId = $keycloak->createAccount([
-        'nome'             => $data->nome,
-        'sobrenome'        => $data->sobrenome,
-        'email'            => $data->email,
-        'telefone'         => $data->telefone,
-        'data_nascimento'  => $data->data_nascimento,
-        'password'         => $data->password,
-        'confirm_password' => $data->confirm_password,
+    try {
+      $accountService = new AccountService();
+      $accountService->createAccount($account, $data['password'], $data['confirm_password']);
+
+      // Renderiza view informando que precisa confirmar e-mail
+      return view('auth/verify-email', [
+        'email' => $data['email'],
+        'message' => 'Cadastro realizado com sucesso! Verifique seu e-mail para ativar sua conta.'
       ]);
-
-      // Envia e-mail de verificação
-      // $keycloak->sendVerificationEmail($userId);
-
-      // Retorna sucesso
-      return $this->respond([
-        'success' => true,
-        'userId'  => $userId,
-        'message' => 'Usuário criado com sucesso. E-mail de verificação enviado.'
-      ], 201);
-    } catch (\Exception $e) {
-      // Qualquer outro erro inesperado
-      return $this->failServerError("Erro interno: " . $e->getMessage());
+    } catch (\RuntimeException $e) {
+      $code = in_array($e->getCode(), [400, 401, 403, 404, 409, 422, 500]) ? $e->getCode() : 400;
+      return $this->fail($e->getMessage(), $code);
+    } catch (\Throwable $e) {
+      log_message('error', '[RegisterController] ' . $e->getMessage() . "\n" . $e->getTraceAsString());
+      return $this->failServerError('Ocorreu um erro interno ao processar seu cadastro. Por favor, tente novamente mais tarde.');
     }
   }
 }

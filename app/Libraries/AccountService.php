@@ -27,6 +27,7 @@ class AccountService
       ]);
     } catch (\Throwable $e) {
       $code = $e->getCode() ?: 500;
+      echo $e;
       throw new \RuntimeException('Erro ao criar usuário no Keycloak.', $code, $e);
     }
 

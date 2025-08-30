@@ -53,16 +53,16 @@
         <!-- The action and method can be adjusted for your backend -->
         <form action="<?= base_url('/register') ?>" method="post" class="space-y-4">
 
-          <!-- Nome e Sobrenome -->
+          <!-- name e last_name -->
           <div class="flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0">
             <div class="w-full sm:w-1/2">
-              <label for="nome" class="block text-sm font-medium text-gray-300 mb-2">Nome</label>
-              <input type="text" name="nome" id="nome" required placeholder="Seu nome"
+              <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Nome</label>
+              <input type="text" name="name" id="name" required placeholder="Seu name"
                 class="w-full px-4 py-3 bg-[#1A1A2E] border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition duration-200" />
             </div>
             <div class="w-full sm:w-1/2">
-              <label for="sobrenome" class="block text-sm font-medium text-gray-300 mb-2">Sobrenome</label>
-              <input type="text" name="sobrenome" id="sobrenome" required placeholder="Seu sobrenome"
+              <label for="last_name" class="block text-sm font-medium text-gray-300 mb-2">Sobrenome</label>
+              <input type="text" name="last_name" id="last_name" required placeholder="Seu last_name"
                 class="w-full px-4 py-3 bg-[#1A1A2E] border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition duration-200" />
             </div>
           </div>
@@ -74,17 +74,17 @@
               class="w-full px-4 py-3 bg-[#1A1A2E] border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition duration-200" />
           </div>
 
-          <!-- Telefone -->
+          <!-- phone -->
           <div>
-            <label for="telefone" class="block text-sm font-medium text-gray-300 mb-2">Telefone</label>
-            <input type="tel" name="telefone" id="telefone" required placeholder="(99) 99999-9999"
+            <label for="phone" class="block text-sm font-medium text-gray-300 mb-2">Telefone</label>
+            <input type="tel" name="phone" id="phone" required placeholder="(99) 99999-9999"
               class="w-full px-4 py-3 bg-[#1A1A2E] border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition duration-200" />
           </div>
 
           <!-- Data de Nascimento -->
           <div>
-            <label for="data_nascimento" class="block text-sm font-medium text-gray-300 mb-2">Data de Nascimento</label>
-            <input type="date" name="data_nascimento" id="data_nascimento" required
+            <label for="date_of_birth" class="block text-sm font-medium text-gray-300 mb-2">Data de Nascimento</label>
+            <input type="date" name="date_of_birth" id="date_of_birth" required
               class="w-full px-4 py-3 bg-[#1A1A2E] border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition duration-200" />
           </div>
 
