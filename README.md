@@ -1,68 +1,120 @@
-# CodeIgniter 4 Application Starter
+# Guia Rápido do Ambiente Docker (Cinemio)
 
-## What is CodeIgniter?
+Este documento serve como um guia rápido com os comandos e fluxos de trabalho essenciais para o desenvolvimento neste projeto.
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+## 1. Gerenciando os Contêineres
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+Comandos básicos para iniciar, parar e verificar o status do seu ambiente Docker.
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+- **Iniciar o ambiente (em background):**
+  ```bash
+  docker-compose up -d
+  ```
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+- **Parar o ambiente:**
+  ```bash
+  docker-compose down
+  ```
 
-## Installation & updates
+- **Verificar o status dos contêineres:**
+  ```bash
+  docker-compose ps
+  ```
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+- **Reiniciar um serviço específico (ex: a aplicação):**
+  ```bash
+  docker-compose restart app
+  ```
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+---
 
-## Setup
+## 2. Trabalhando com a Aplicação (CodeIgniter)
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+Todos os comandos do CodeIgniter (`php spark`) devem ser executados de dentro do contêiner da aplicação.
 
-## Important Change with index.php
+### Acessando o Terminal da Aplicação (O Jeito Certo)
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+Para evitar problemas de permissão de arquivos entre o contêiner e a sua máquina, **sempre** use o comando abaixo para entrar no terminal. Ele executa os comandos com o seu usuário local, e não como `root`.
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+```bash
+docker-compose exec --user $(id -u):$(id -g) app bash
+```
 
-**Please** read the user guide for a better explanation of how CI4 works!
+### Criando um Arquivo de Migração
 
-## Repository Management
+Depois de entrar no terminal com o comando acima, crie um novo arquivo de migração.
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+```bash
+# Exemplo: criando uma tabela 'produtos'
+php spark make:migration CreateProdutosTable
+```
+O novo arquivo será criado em `app/Database/Migrations/` e você poderá editá-lo normalmente no seu editor de código, sem precisar usar `sudo`.
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+### Rodando as Migrações
 
-## Server Requirements
+Para aplicar todas as migrações pendentes e atualizar a estrutura do banco de dados:
 
-PHP version 8.1 or higher is required, with the following extensions installed:
+```bash
+php spark migrate
+```
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+### Revertendo a Última Migração
 
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - If you are still using PHP 7.4 or 8.0, you should upgrade immediately.
-> - The end of life date for PHP 8.1 will be December 31, 2025.
+Para desfazer o último lote de migrações que foi aplicado:
 
-Additionally, make sure that the following extensions are enabled in your PHP:
+```bash
+php spark migrate:rollback
+```
 
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+---
+
+## 3. Acessando o Banco de Dados (PostgreSQL)
+
+Para inspecionar o banco de dados diretamente via linha de comando.
+
+- **1. Acesse o terminal do contêiner do banco:**
+  ```bash
+  docker-compose exec db bash
+  ```
+
+- **2. Conecte-se ao banco `cinemio` com o cliente `psql`:**
+  ```bash
+  psql -U ci_user -d cinemio
+  ```
+
+- **Comandos úteis dentro do `psql`:**
+  - `\l`: Lista todos os bancos de dados.
+  - `\dt`: Lista todas as tabelas do banco de dados atual.
+  - `SELECT * FROM migrations;`: Mostra quais migrações já foram executadas.
+  - `\q`: Sai do `psql`.
+
+---
+
+## 4. Solução de Problemas Comuns
+
+- **"Rodei `php spark migrate` com o arquivo vazio e agora ele não roda de novo!"**
+  - A migração foi registrada como "executada". Você precisa apagar o registro manualmente no seu cliente de banco (DBeaver, etc.) antes de tentar rodar de novo.
+  ```sql
+  -- Substitua o nome da classe pelo da sua migração
+  DELETE FROM migrations WHERE class = 'App\Database\Migrations\NomeDaSuaMigration';
+  ```
+
+- **"Criei um arquivo e não consigo editar (erro de permissão)!"**
+  - Isso acontece se você criou o arquivo como `root` (usando `docker-compose exec app bash` sem a flag `--user`). Para corrigir a permissão de todos os arquivos do projeto de uma vez, rode na sua máquina local:
+  ```bash
+  sudo chown -R $(whoami):$(whoami) .
+  ```
+
+---
+
+## 5. Acesso aos Serviços
+
+- **Aplicação (CodeIgniter):** http://localhost:8080
+- **MinIO (Painel):** http://localhost:9001
+- **Keycloak (Painel):** http://localhost:8005
+- **PostgreSQL (para DBeaver/etc):**
+  - **Host:** `localhost`
+  - **Porta:** `5432`
+  - **Usuário:** `ci_user`
+  - **Senha:** `ci_pass`
+  - **Database:** `cinemio`

@@ -52,7 +52,8 @@
 
         <!-- The action and method can be adjusted for your backend -->
         <form action="<?= base_url('/register') ?>" method="post" class="space-y-4">
-          <!-- Name and Surname -->
+
+          <!-- Nome e Sobrenome -->
           <div class="flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0">
             <div class="w-full sm:w-1/2">
               <label for="nome" class="block text-sm font-medium text-gray-300 mb-2">Nome</label>
@@ -66,28 +67,35 @@
             </div>
           </div>
 
-          <!-- Email Input -->
+          <!-- Email -->
           <div>
             <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email</label>
             <input type="email" name="email" id="email" required placeholder="seuemail@exemplo.com"
               class="w-full px-4 py-3 bg-[#1A1A2E] border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition duration-200" />
           </div>
 
-          <!-- Phone Input -->
+          <!-- Telefone -->
           <div>
             <label for="telefone" class="block text-sm font-medium text-gray-300 mb-2">Telefone</label>
             <input type="tel" name="telefone" id="telefone" required placeholder="(99) 99999-9999"
               class="w-full px-4 py-3 bg-[#1A1A2E] border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition duration-200" />
           </div>
 
-          <!-- Password Input -->
+          <!-- Data de Nascimento -->
+          <div>
+            <label for="data_nascimento" class="block text-sm font-medium text-gray-300 mb-2">Data de Nascimento</label>
+            <input type="date" name="data_nascimento" id="data_nascimento" required
+              class="w-full px-4 py-3 bg-[#1A1A2E] border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition duration-200" />
+          </div>
+
+          <!-- Senha -->
           <div>
             <label for="password" class="block text-sm font-medium text-gray-300 mb-2">Senha</label>
             <input type="password" name="password" id="password" required placeholder="Crie uma senha forte"
               class="w-full px-4 py-3 bg-[#1A1A2E] border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition duration-200" />
           </div>
 
-          <!-- Confirm Password Input -->
+          <!-- Confirmação de Senha -->
           <div>
             <label for="confirm_password" class="block text-sm font-medium text-gray-300 mb-2">Confirmação de
               Senha</label>
@@ -96,20 +104,22 @@
               class="w-full px-4 py-3 bg-[#1A1A2E] border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition duration-200" />
           </div>
 
-          <!-- Submit Button -->
+          <!-- Botão de Submit -->
           <button type="submit"
             class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-indigo-700 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-purple-900/30 !mt-6">
             Criar Conta
           </button>
 
-          <!-- Sign-in Link -->
+          <!-- Link para login -->
           <div class="text-center text-gray-400 pt-4">
             Já possui uma conta?
             <a href="<?= base_url('/login') ?>" class="font-medium text-purple-400 hover:text-purple-300 transition">
               Faça login
             </a>
           </div>
+
         </form>
+
       </div>
     </div>
   </div>
