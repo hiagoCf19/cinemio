@@ -27,8 +27,29 @@ class LoginController extends BaseController
             return redirect()->back()->with('error', $response['message'] ?? 'Credenciais inválidas');
         }
 
-        // se sucesso, salva o token na sessão (se quiser)
-        session()->set('token', $response['token']);
+        // se login no Keycloak foi bem-sucedido, pega os dados no banco
+        $db = \Config\Database::connect();
+        $builder = $db->table('accounts');
+        $account = $builder->where('email', $email)->get()->getRowArray();
+
+        if (!$account) {
+            return redirect()->back()->with('error', 'Usuário não encontrado no sistema.');
+        }
+
+        // salva os dados do usuário na sessão
+        session()->set([
+            'user_id'           => $account['id'],
+            'email'             => $account['email'],
+            'external_id'       => $account['external_id'],
+            'holder_name'       => $account['holder_name'],
+            'holder_date_of_birth' => $account['holder_date_of_birth'],
+            'holder_phone'      => $account['holder_phone'],
+            'active'            => $account['active'],
+            'is_email_verified' => $account['is_email_verified'],
+            'created_at'        => $account['created_at'],
+            'updated_at'        => $account['updated_at'],
+            'token'             => $response['token'] // opcional
+        ]);
 
         // redireciona para home
         return redirect()->to('/');

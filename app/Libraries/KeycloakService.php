@@ -141,13 +141,13 @@ class KeycloakService
 
     private function sendVerificationEmail(string $userId): void
     {
-        // 1️⃣ Pega o token de admin
         $token = $this->getAdminToken();
 
-        // 2️⃣ Endpoint do Keycloak para executar a ação de e-mail
-        $url = "{$this->baseUrl}/admin/realms/{$this->realm}/users/{$userId}/execute-actions-email";
+        // 🔗 monta a URL com client_id + redirect_uri
+        $url = "{$this->baseUrl}/admin/realms/{$this->realm}/users/{$userId}/execute-actions-email"
+            . '?client_id=animio'
+            . '&redirect_uri=' . urlencode("http://localhost:8080/login-success?uid={$userId}");
 
-        // 3️⃣ Payload: array com a ação VERIFY_EMAIL
         $payload = ["VERIFY_EMAIL"];
 
         $ch = curl_init();
@@ -171,10 +171,8 @@ class KeycloakService
         curl_close($ch);
 
         if ($httpCode !== 204) {
-            throw new \Exception("Erro ao enviar e-mail de verificação: " . $response);
+            throw new \Exception("Erro ao enviar e-mail de verificação: " . $response, $httpCode);
         }
-
-        // Sucesso: e-mail de verificação enviado
     }
 
 

@@ -3,7 +3,6 @@
 namespace App\Libraries;
 
 use App\Entities\Account;
-use App\Exceptions\AccountAlreadyExistException;
 
 class AccountService
 {
@@ -48,5 +47,14 @@ class AccountService
 
     // Retorna o id que foi inserido (não depende de insertID)
     return $dataToInsert['id'];
+  }
+  public function verifyEmail(string $uid): void
+  {
+    $db = \Config\Database::connect();
+    $builder = $db->table('accounts');
+
+    // Atualiza o usuário com o external_id = $uid
+    $builder->where('id', $uid)
+      ->update(['is_email_verified' => true]);
   }
 }
