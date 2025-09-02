@@ -10,9 +10,6 @@ class HomeController extends BaseController
   public function index()
   {
     $session = session();
-
-    // Para debug: mostra todos os dados da sessão
-    print_r($session->get());
-    echo '</pre>';
+    return view('home/selectProfile', ['session' => $session]);
   }
 }

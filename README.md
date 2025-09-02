@@ -37,7 +37,7 @@ Todos os comandos do CodeIgniter (`php spark`) devem ser executados de dentro do
 Para evitar problemas de permissão de arquivos entre o contêiner e a sua máquina, **sempre** use o comando abaixo para entrar no terminal. Ele executa os comandos com o seu usuário local, e não como `root`.
 
 ```bash
-docker-compose exec --user $(id -u):$(id -g) app bash
+docker compose exec --user $(id -u):$(id -g) app bash
 ```
 
 ### Criando um Arquivo de Migração

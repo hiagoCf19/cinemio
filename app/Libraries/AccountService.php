@@ -57,4 +57,15 @@ class AccountService
     $builder->where('id', $uid)
       ->update(['is_email_verified' => true]);
   }
+  public function getProfiles(string $user_id)
+  {
+    $db = \Config\Database::connect();
+
+    // Usando Query Builder direto
+    $builder = $db->table('profiles');
+    $builder->where('user_id', $user_id);
+    $query = $builder->get();
+
+    return $query->getResult(); // retorna array de objetos
+  }
 }
